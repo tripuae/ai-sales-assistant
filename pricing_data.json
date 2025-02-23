@@ -1,0 +1,42 @@
+{
+    "tours": {
+      "desert_jeep_safari": {
+        "id": "desert_jeep_safari",
+        "name": "Пустынное джип-сафари",
+        "type": "excursion",
+        "description": "Увлекательное путешествие по песчаным дюнам…",
+        "location": "Dubai",
+        "variants": {
+          "standard": {
+            "name": "Стандарт",
+            "description": "Стандартный пакет с трансфером и питанием",
+            "duration": "5.5 часов (15:30-21:00)",
+            "pricing": {
+              "dubai": {
+                "adult_price": 40,
+                "child_price": 35,
+                "child_age_min": 3,
+                "child_age_max": 11,
+                "infant_price": 0,
+                "infant_age_max": 3,
+                "notes": "Выезд из Дубай, Аджман, Шарджа"
+              }
+            },
+            "includes_transfer": true,
+            "includes_meals": true,
+            "available_days": ["daily"]
+          }
+        },
+        "upsell_suggestions": ["edge_walk", "atlantis_aquaventure", "wild_wadi"]
+      }
+    },
+    "transfers": [
+      {
+        "from_location": "Dubai (Sharjah, Ajman)",
+        "to_location": "Dubai",
+        "passenger_range": "1-7",
+        "duration": "Up to 6 hours",
+        "price_usd": 170
+      }
+    ]
+  }

@@ -1,0 +1,115 @@
+[
+    {
+      "name": "Desert Safari Booking",
+      "description": "Customer inquiring about and booking desert safari",
+      "initial_profile": {},
+      "messages": [
+        "Здравствуйте, мы ищем сафари в пустыне для нашей семьи",
+        "Нас 2 взрослых и 1 ребенок 7 лет. Мы остановились в Дубае",
+        "Расскажите подробнее о стандартном сафари",
+        "Какие шоу включены в программу?",
+        "Хорошо, давайте забронируем на 25 марта"
+      ],
+      "expected_final_state": "booking",
+      "expected_customer_profile": {
+        "emirate": "dubai",
+        "group_size": 2,
+        "children_count": 1,
+        "selected_tour": "desert_jeep_safari"
+      }
+    },
+    {
+      "name": "Marina Cruise with Price Objection",
+      "description": "Customer interested in night cruise but objects to price",
+      "initial_profile": {},
+      "messages": [
+        "Добрый день! Интересует ночной круиз по Дубай Марине",
+        "Мы вдвоем с супругой, проживаем в отеле в Шардже",
+        "А какие варианты круиза есть?",
+        "Это довольно дорого. Есть ли варианты подешевле?",
+        "А если без трансфера? Мы можем добраться сами",
+        "Хорошо, тогда давайте забронируем стандартный вариант на завтра"
+      ],
+      "expected_final_state": "booking",
+      "expected_customer_profile": {
+        "emirate": "sharjah",
+        "group_size": 2,
+        "selected_tour": "night_cruise"
+      }
+    },
+    {
+      "name": "City Tour with Specific Questions",
+      "description": "Customer asking detailed questions about city tour",
+      "initial_profile": {
+        "emirate": "dubai",
+        "group_size": 4,
+        "children_count": 0
+      },
+      "messages": [
+        "Какие достопримечательности мы увидим на обзорной экскурсии по Дубаю?",
+        "Сколько длится экскурсия?",
+        "Есть ли вариант с посещением Бурдж Халифа?",
+        "А трансфер включен?",
+        "Отлично, бронируем на четверг на 4 взрослых"
+      ],
+      "expected_final_state": "booking",
+      "expected_customer_profile": {
+        "emirate": "dubai",
+        "group_size": 4,
+        "selected_tour": "dubai_city_tour"
+      }
+    },
+    {
+      "name": "Multi-Tour Inquiry",
+      "description": "Customer asking about multiple tour options",
+      "initial_profile": {
+        "emirate": "abu_dhabi",
+        "group_size": 2,
+        "children_count": 0
+      },
+      "messages": [
+        "Мы приезжаем в Абу-Даби на неделю. Какие экскурсии вы можете порекомендовать?",
+        "А можно совместить городскую экскурсию с пустынным сафари?",
+        "Какой вариант будет лучше для фотографий - утреннее или вечернее сафари?",
+        "Сколько будет стоить городская экскурсия для двоих?",
+        "Можем ли мы сначала заказать городскую экскурсию, а потом решить насчет сафари?",
+        "Хорошо, бронируем городскую экскурсию на понедельник"
+      ],
+      "expected_final_state": "booking",
+      "expected_customer_profile": {
+        "emirate": "abu_dhabi",
+        "group_size": 2,
+        "selected_tour": "dubai_city_tour"
+      }
+    },
+    {
+      "name": "Large Group Booking with Discount",
+      "description": "Booking for a large group with discount request",
+      "initial_profile": {},
+      "messages": [
+        "Здравствуйте! Мы группа из 8 человек, ищем экскурсию по Дубаю",
+        "Мы остановились в отеле в Дубае. Интересует экскурсия с гидом",
+        "Какие варианты есть для большой группы?",
+        "А скидки для групп предусмотрены?",
+        "Хорошо, давайте стандартный вариант. У вас есть вариант с подъемом на Бурдж Халифа?",
+        "Отлично, бронируем на следующую среду"
+      ],
+      "expected_final_state": "booking",
+      "expected_customer_profile": {
+        "emirate": "dubai",
+        "group_size": 8,
+        "selected_tour": "dubai_city_tour"
+      }
+    },
+    {
+      "name": "Incomplete Information",
+      "description": "Customer sends incomplete data and ambiguous message",
+      "initial_profile": {},
+      "messages": [
+        "Привет, хочу экскурсию",
+        "Не знаю, что выбрать..."
+      ],
+      "expected_final_state": "gathering_info",
+      "expected_customer_profile": {}
+    }
+  ]
