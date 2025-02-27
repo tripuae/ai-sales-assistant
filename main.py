@@ -97,7 +97,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     price_db = create_database()
     # Create the response generator with ChatGPT and LlamaIndex integrations enabled.
-    response_generator = ResponseGenerator(price_db, use_chatgpt=True, use_llama_index=True)
+    response_generator = ResponseGenerator(price_db, use_chatgpt=True, use_llama_index=False)
     # -------------------------------------------------------------------------
     
     if args.mode == "interactive":

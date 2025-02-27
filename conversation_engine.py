@@ -1,9 +1,9 @@
 """
 AI Sales Assistant Conversation Engine
 This module handles the conversation flow and response generation for the tourism sales assistant.
-It integrates ChatGPT (via LangChain) and LlamaIndex.
+It integrates ChatGPT (via LangChain Community) and LlamaIndex.
 Before running, create a file named .env in the same directory with the following content:
-   OPENAI_API_KEY=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
+   OPENAI_API_KEY=YOUR_OPENAI_API_KEY_HERE
 """
 
 from dotenv import load_dotenv
@@ -15,18 +15,14 @@ import logging
 from typing import Dict, List, Optional, Any
 from enum import Enum
 
-# ... your other imports ...
+# Updated import statements from langchain-community
+from langchain_core.messages import HumanMessage, AIMessage
+from langchain_openai import ChatOpenAI
 
-# Remove or comment out these old lines:
-# from langchain_openai import ChatOpenAI
-# from langchain_core.messages import HumanMessage
+# Import your database schema definitions
+from database_schema import PriceDatabase, TourPackage, TourVariant, PriceOption, TransferOption
 
-# Add these new lines instead:
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage, AIMessage
-from llama_index import GPTSimpleVectorIndex
-
-# Set up logging to see what is happening in the code
+# Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -130,7 +126,7 @@ class ConversationContext:
 class ResponseGenerator:
     """
     Generates responses based on conversation context.
-    It can use ChatGPT (via LangChain) and/or LlamaIndex for a more natural response.
+    It can use ChatGPT (via LangChain Community) and/or LlamaIndex for a more natural response.
     """
     def __init__(self, price_db: PriceDatabase, use_chatgpt: bool = False, use_llama_index: bool = False):
         self.price_db = price_db
@@ -139,17 +135,18 @@ class ResponseGenerator:
         self.use_llama_index = use_llama_index
 
         if self.use_chatgpt:
-            self.llm = ChatOpenAI(model="gpt-4")  # Change to "gpt-3.5-turbo" if preferred
+            self.llm = ChatOpenAI(model_name="gpt-4-turbo")
 
         if self.use_llama_index:
-            # Here we build a simple index from sample documents.
-            documents = [
-                "You are a professional tourism sales assistant. Respond in Russian with a friendly tone.",
-                "Offer tour recommendations based on customer interests.",
-                "Handle pricing objections gracefully and suggest upsell options.",
-                "Guide customers to book tours when ready."
-            ]
-            self.index = GPTSimpleVectorIndex(documents)
+            # Comment out LlamaIndex functionality for now
+            # documents = [
+            #     Document(text="You are a professional tourism sales assistant. Respond in Russian with a friendly tone."),
+            #     Document(text="Offer tour recommendations based on customer interests."),
+            #     Document(text="Handle pricing objections gracefully and suggest upsell options."),
+            #     Document(text="Guide customers to book tours when ready.")
+            # ]
+            # self.index = GPTVectorStoreIndex.from_documents(documents)
+            pass  # Skip LlamaIndex integration
 
     def _load_templates(self) -> Dict[str, Dict[str, str]]:
         return {
@@ -255,7 +252,7 @@ class ResponseGenerator:
         if self.use_chatgpt:
             prompt = self._assemble_prompt(context, user_message)
             try:
-                chat_response = self.llm.invoke([HumanMessage(content=prompt)])
+                chat_response = self.llm.invoke(prompt)
                 response_text = chat_response.content.strip()
                 context.add_message("assistant", response_text)
                 logger.info("ChatGPT response: %s", response_text)
@@ -263,17 +260,19 @@ class ResponseGenerator:
             except Exception as e:
                 logger.error("Error during ChatGPT invocation: %s", e)
         
-        # If using LlamaIndex integration, use that next
+        # If using LlamaIndex integration, try that next
         if self.use_llama_index:
-            prompt = self._assemble_prompt(context, user_message)
-            try:
-                index_result = self.index.query(prompt)
-                response_text = index_result.strip()
-                context.add_message("assistant", response_text)
-                logger.info("LlamaIndex response: %s", response_text)
-                return response_text
-            except Exception as e:
-                logger.error("Error during LlamaIndex query: %s", e)
+            # Comment out for now
+            # prompt = self._assemble_prompt(context, user_message)
+            # try:
+            #     index_result = self.index.query(prompt)
+            #     response_text = index_result.strip()
+            #     context.add_message("assistant", response_text)
+            #     logger.info("LlamaIndex response: %s", response_text)
+            #     return response_text
+            # except Exception as e:
+            #     logger.error("Error during LlamaIndex query: %s", e)
+            pass  # Skip LlamaIndex integration
         
         # Fallback: use internal logic
         self._extract_emirate(context, user_message)
@@ -548,7 +547,7 @@ class ResponseGenerator:
 
     def _handle_objection(self, context: ConversationContext, user_message: str) -> str:
         msg_lower = user_message.lower()
-        if re.search(r"(дорого|цена\s?высок|expensive|cost)", msg_lower):
+        if re.search(r"(дорого|цена\s?высок|слишком|expensive|cost)", msg_lower):
             return self.templates["objection_handling"]["price_high"]
         elif re.search(r"(подумаю|надо\s?обсудить|think\s?about\s?it|not\s?sure)", msg_lower):
             return self.templates["objection_handling"]["thinking"]
