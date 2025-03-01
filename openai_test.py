@@ -8,20 +8,30 @@ def test_openai_connection():
     
     if not api_key:
         print("ERROR: No OpenAI API key found in .env file!")
-        return
+        return False
     
     print(f"API Key (first 5 chars): {api_key[:5]}...")
     
     try:
         client = openai.OpenAI(api_key=api_key)
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": "Say hello"}]
+            model="gpt-4.5-preview",  # Specify the exact model name
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": "Verify that you are running on the GPT-4.5 preview model. Can you confirm this?"}
+            ],
+            temperature=0.7,
+            max_tokens=100
         )
-        print(f"OpenAI test SUCCESS! Response: {response.choices[0].message.content}")
+        
+        print("Model Response Test:")
+        print(f"Model Used: {response.model}")
+        print(f"Response: {response.choices[0].message.content}")
+        return True
     except Exception as e:
         print(f"OpenAI test FAILED: {str(e)}")
+        return False
 
 if __name__ == "__main__":
-    print("Testing OpenAI connection...")
+    print("Testing OpenAI connection with GPT-4.5 preview...")
     test_openai_connection()

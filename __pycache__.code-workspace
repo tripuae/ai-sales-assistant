@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"path": "__pycache__"
+		},
+		{
+			"path": "clean_env"
+		},
+		{
+			"path": "clean_venv"
+		},
+		{
+			"path": "config"
+		},
+		{
+			"path": "docs"
+		},
+		{
+			"path": "fresh_venv"
+		},
+		{
+			"path": "venv"
+		},
+		{
+			"path": "venv_py311"
+		},
+		{
+			"path": "venv_py312"
+		}
+	]
+}

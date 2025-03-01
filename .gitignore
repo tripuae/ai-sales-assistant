@@ -6,6 +6,8 @@ fresh_venv/
 __pycache__/
 .python-version
 .env
+.env.local
+.env.*.local
 
 # Python compiled files
 *.pyc
@@ -18,16 +20,28 @@ __pycache__/
 # IDE and editor files
 .vscode/
 .idea/
-
-# Temporary files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.swp
 *~
+
+# Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Distribution and packaging
 dist/
 build/
 *.egg-info/
+
+# Node modules
+node_modules/
 
 # Specific project exclusions
 installed_packages.txt

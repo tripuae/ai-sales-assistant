@@ -1,0 +1,30 @@
+[
+  {
+    "scenario": "Basic greeting",
+    "success": true,
+    "time": 7.836289644241333,
+    "response_length": 913,
+    "response_snippet": "Привет! В Дубае у нас есть множество увлекательных экскурсий. Вот несколько популярных вариантов:\n\n1..."
+  },
+  {
+    "scenario": "Complex pricing inquiry",
+    "success": true,
+    "time": 13.611970901489258,
+    "response_length": 1355,
+    "response_snippet": "Здравствуйте! Сафари в пустыне — это захватывающее приключение, и многие семьи выбирают его, чтобы д..."
+  },
+  {
+    "scenario": "Objection handling",
+    "success": true,
+    "time": 6.0371339321136475,
+    "response_length": 873,
+    "response_snippet": "Да, у нас есть несколько более доступных вариантов экскурсий в Абу-Даби. Например, групповые туры мо..."
+  },
+  {
+    "scenario": "Detailed itinerary request",
+    "success": true,
+    "time": 10.069464921951294,
+    "response_length": 1621,
+    "response_snippet": "VIP-тур по Дубаю предлагает уникальный и роскошный опыт, позволяя вам насладиться городом с максимал..."
+  }
+]
