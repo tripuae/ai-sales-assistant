@@ -11,9 +11,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Hardcoded token from your .env file
-TELEGRAM_TOKEN = "7520286452:AAHEjYROx3L8pdBduHF-0EqMz-VLRBlvcUc"  # This is your token from the .env file
-CLAUDE_API_KEY = "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"  # Your Claude API key
+# Load tokens from environment variables
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+CLAUDE_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+
+if not TELEGRAM_TOKEN or not CLAUDE_API_KEY:
+    logger.error("TELEGRAM_BOT_TOKEN or ANTHROPIC_API_KEY not found in environment variables")
+    sys.exit(1)
 
 class ConversationContext:
     """Store conversation history for each user"""
@@ -32,7 +36,7 @@ class DirectTokenTelegramBot:
     
     def __init__(self):
         """Initialize the bot"""
-        # Use hardcoded tokens
+        # Use tokens from environment variables
         self.telegram_token = TELEGRAM_TOKEN
         self.claude_api_key = CLAUDE_API_KEY
         
